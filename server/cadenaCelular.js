@@ -101,6 +101,17 @@ class CadenaCelular {
   }
 
   reportarRobo(IMEI, idPropietario) {
+    const yaReportado = this.listaCelulares.find(
+      ({ data }) =>
+        data.imei == IMEI &&
+        data.propietario.id_propietario == idPropietario &&
+        data.estaReportado == true
+    )
+
+    if (yaReportado) {
+      throw new Error('El celular ya esta reportado')
+    }
+
     const existe = this.listaCelulares.find(
       ({ data }) =>
         data.imei == IMEI && data.propietario.id_propietario == idPropietario
