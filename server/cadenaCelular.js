@@ -30,18 +30,19 @@ class CadenaCelular {
     )
 
     if (siExiste) {
-      console.log('No se puede comprar 2 veces el celular por la misma persona')
-      return
+      throw new Error('El celular ya existe')
     }
 
     let prevCelular = this.obtenerUltimoCelular()
+
     let celular = new Celular(
       prevCelular.index + 1,
       dataCelular,
       prevCelular.hash
     )
+
     this.listaCelulares.push(celular)
-    console.log('Celular: ' + celular.hash)
+    return { ok: true, mensaje: 'Celular: ' + celular.hash }
   }
 
   obtenerTodosCelular() {
@@ -52,8 +53,7 @@ class CadenaCelular {
     const siExiste = this.existeCelular(IMEI)
 
     if (!siExiste) {
-      console.log('Celular NO REGISTRADO')
-      return
+      throw new Error('Celular NO REGISTRADO')
     }
 
     const verificarRobo = this.listaCelulares.find(
@@ -61,12 +61,10 @@ class CadenaCelular {
     )
 
     if (verificarRobo) {
-      console.log('Celular REPORTADO como ROBADO ' + IMEI)
-      return
+      return { ok: true, mensaje: 'Celular ' + IMEI + ' REPORTADO como ROBO' }
     }
 
-    console.log('Celular NO REPORTADO')
-    return verificarRobo
+    return { ok: true, mensaje: 'Celular NO REPORTADO ' + IMEI }
   }
 
   revenderCelular(IMEI, nombreNuevoPropietario, idPropietario, precio) {
@@ -75,8 +73,7 @@ class CadenaCelular {
     )
 
     if (existe2) {
-      console.log('Celular REPORTADO no comprar')
-      return
+      throw new Error('El celular ya esta revendido')
     }
 
     const existe = this.listaCelulares.find(
@@ -97,9 +94,9 @@ class CadenaCelular {
 
       this.comprarCelular(nuevaVenta)
 
-      console.log('Celular REVENDIDO a ' + nombreNuevoPropietario)
+      return { ok: true, mensaje: 'Celular revendido ' + IMEI }
     } else {
-      console.log('El celular con IMEI ' + IMEI + ' no existe.')
+      return { ok: false, mensaje: 'El celular no existe' }
     }
   }
 
@@ -132,9 +129,9 @@ class CadenaCelular {
 
       this.listaCelulares = list
 
-      console.log('REPORTADO EXITOSO del celular' + IMEI)
+      return { ok: true, mensaje: 'REPORTADO EXITOSO del celular' + IMEI }
     } else {
-      console.log(
+      throw new Error(
         'El celular con IMEI ' +
           IMEI +
           ' y PROPIETARIO ' +

@@ -11,59 +11,65 @@ let listaCelulares = new CadenaCelular('Genesis')
 server.get('/', (req, res) => {
   const listar = listaCelulares.obtenerTodosCelular()
 
-  res.send(listar)
+  res.status(200).json(listar)
 })
 
 server.post('/comprar_celular', (req, res) => {
   const celular = req.body
 
-  listaCelulares.comprarCelular(celular)
+  try {
+    const { ok, mensaje } = listaCelulares.comprarCelular(celular)
 
-  res.status(201).send()
+    res.status(201).json({ ok, mensaje })
+  } catch (error) {
+    res.status(400).json(error.message)
+  }
 })
 
 server.post('/revender_celular', (req, res) => {
   const { IMEI, nombreNuevoPropietario, idPropietario, precio } = req.body
 
-  listaCelulares.revenderCelular(
-    IMEI,
-    nombreNuevoPropietario,
-    idPropietario,
-    precio
-  )
+  try {
+    const { ok, mensaje } = listaCelulares.revenderCelular(
+      IMEI,
+      nombreNuevoPropietario,
+      idPropietario,
+      precio
+    )
 
-  res.status(201).send()
+    res.status(201).json({ ok, mensaje })
+  } catch (error) {
+    res.status(400).json(error.message)
+  }
 })
 
-server.post('/comprobar_robo', (req, res) => {
-  const { IMEI } = req.body
+server.get('/comprobar_robo/:IMEI', (req, res) => {
+  const { IMEI } = req.params
 
-  listaCelulares.comprobarRobo(IMEI)
+  try {
+    const { ok, mensaje } = listaCelulares.comprobarRobo(IMEI)
 
-  res.status(201).send()
+    res.status(201).json({ ok, mensaje })
+  } catch (error) {
+    res.status(400).json(error.message)
+  }
 })
 
-server.post('/reportar_robo', (req, res) => {
-  const { IMEI, idPropietario } = req.body
+server.put('/reportar_robo/:IMEI/:idPropietario', (req, res) => {
+  const { IMEI, idPropietario } = req.params
 
-  listaCelulares.reportarRobo(IMEI, idPropietario)
+  try {
+    const { ok, mensaje } = listaCelulares.reportarRobo(IMEI, idPropietario)
 
-  res.status(201).send()
+    res.status(201).json({ ok, mensaje })
+  } catch (error) {
+    res.status(400).json(error.message)
+  }
 })
-
 
 server.listen(3000, () => {
   console.log('http://localhost:3000')
 })
-
-
-
-
-
-
-
-
-
 
 // const celular1 = {
 //   imei: 356789012345678,
