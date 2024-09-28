@@ -45,7 +45,7 @@ class CadenaCelular {
   }
 
   obtenerTodosCelular() {
-    console.log(JSON.stringify(this.listaCelulares, null, 2))
+    return this.listaCelulares
   }
 
   comprobarRobo(IMEI) {
