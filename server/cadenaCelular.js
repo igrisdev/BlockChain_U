@@ -1,6 +1,6 @@
-const { Celular } = require('./celular')
+import { Celular } from './celular.js'
 
-class CadenaCelular {
+export class CadenaCelular {
   constructor(inicio) {
     this.listaCelulares = [this.crearPuntoInicio(inicio)]
   }
@@ -152,5 +152,3 @@ class CadenaCelular {
     }
   }
 }
-
-module.exports = { CadenaCelular }

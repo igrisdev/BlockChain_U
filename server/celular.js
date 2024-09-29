@@ -1,6 +1,6 @@
-const SHA256 = require('crypto-js/sha256')
+import crypto from 'crypto'
 
-class Celular {
+export class Celular {
   constructor(index, data, previousHash = '') {
     this.index = index
     this.date = new Date()
@@ -10,10 +10,9 @@ class Celular {
   }
 
   createHash() {
-    return SHA256(
-      this.index + this.date + this.data + this.previousHash + this.nonce
-    ).toString()
+    return crypto
+      .createHash('sha256')
+      .update(this.index + this.date + this.data + this.previousHash)
+      .digest('hex')
   }
 }
-
-module.exports = { Celular }
