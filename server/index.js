@@ -10,7 +10,7 @@ const server = express()
 server.use(express.json())
 server.use(cors())
 
-connectDB();
+connectDB()
 
 server.use('/', routerCelulares)
 

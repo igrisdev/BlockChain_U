@@ -1,12 +1,29 @@
 import { Celular } from './celular.js'
+import { CadenaCelulares } from './models/modelCadenaCelular.js'
 
 export class CadenaCelular {
   constructor(inicio) {
     this.listaCelulares = [this.crearPuntoInicio(inicio)]
   }
 
-  crearPuntoInicio(inicio) {
-    return new Celular(0, inicio)
+  async crearPuntoInicio(inicio) {
+    const celular = new Celular(0, inicio)
+
+    const buscarCadena = await CadenaCelulares.findOne({ hash: celular.hash })
+
+    console.log(buscarCadena)
+
+    if (buscarCadena) {
+      return buscarCadena
+    }
+
+    const crearCelularInicial = await CadenaCelulares.create(celular)
+
+    if (!crearCelularInicial) {
+      throw new Error('Error al crear la cadena')
+    }
+
+    return celular
   }
 
   existeCelular(IMEI) {
@@ -45,8 +62,9 @@ export class CadenaCelular {
     return { ok: true, mensaje: 'Celular: ' + celular.hash }
   }
 
-  obtenerTodosCelular() {
-    return this.listaCelulares
+  async obtenerTodosCelular() {
+    const lista = await CadenaCelulares.find()
+    return lista
   }
 
   comprobarRobo(IMEI) {
