@@ -7,9 +7,9 @@ export const routerCelulares = Router()
 let listaCelulares = new CadenaCelular('Genesis')
 
 //  Obtener la lista de celulares
-routerCelulares.get('/', (req, res) => {
+routerCelulares.get('/', async (req, res) => {
   try {
-    const listar = listaCelulares.obtenerTodosCelular()
+    const listar = await listaCelulares.obtenerTodosCelular()
 
     res.status(201).json({ ok: true, listar })
   } catch (error) {
@@ -18,11 +18,11 @@ routerCelulares.get('/', (req, res) => {
 })
 
 //  Comprar un celular
-routerCelulares.post('/comprar_celular', (req, res) => {
+routerCelulares.post('/comprar_celular', async (req, res) => {
   const celular = req.body
 
   try {
-    const { ok, mensaje } = listaCelulares.comprarCelular(celular)
+    const { ok, mensaje } = await listaCelulares.comprarCelular(celular)
 
     res.status(201).json({ ok, mensaje })
   } catch (error) {

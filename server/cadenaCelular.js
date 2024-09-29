@@ -3,27 +3,31 @@ import { CadenaCelulares } from './models/modelCadenaCelular.js'
 
 export class CadenaCelular {
   constructor(inicio) {
-    this.listaCelulares = [this.crearPuntoInicio(inicio)]
+    this.listaCelulares = []
+    this.crearPuntoInicio(inicio)
   }
 
   async crearPuntoInicio(inicio) {
-    const celular = new Celular(0, inicio)
+    try {
+      const celular = new Celular(0, inicio)
 
-    const buscarCadena = await CadenaCelulares.findOne({ hash: celular.hash })
+      const buscarCadena = await CadenaCelulares.findOne({
+        hash: celular.hash,
+      }).select('-_id -__v')
 
-    console.log(buscarCadena)
+      if (buscarCadena) {
+        return
+      }
 
-    if (buscarCadena) {
-      return buscarCadena
-    }
+      const nuevaCadena = new CadenaCelulares(celular)
 
-    const crearCelularInicial = await CadenaCelulares.create(celular)
+      await nuevaCadena.save()
 
-    if (!crearCelularInicial) {
+      return
+    } catch (error) {
+      console.error('Error al crear el celular:', error)
       throw new Error('Error al crear la cadena')
     }
-
-    return celular
   }
 
   existeCelular(IMEI) {
@@ -34,36 +38,76 @@ export class CadenaCelular {
     }
   }
 
-  obtenerUltimoCelular() {
-    return this.listaCelulares[this.listaCelulares.length - 1]
+  async obtenerUltimoCelular() {
+    try {
+      const ultimoCelular = await CadenaCelulares.findOne()
+        .sort('-index')
+        .select('-_id -__v')
+
+      if (!ultimoCelular) {
+        throw new Error('No hay celulares en la cadena')
+      }
+
+      return ultimoCelular
+    } catch (error) {
+      throw new Error(error.message)
+    }
   }
 
-  comprarCelular(dataCelular) {
-    const siExiste = this.listaCelulares.find(
-      ({ data }) =>
-        data.imei == dataCelular.imei &&
-        data.propietario.id_propietario ==
-          dataCelular.propietario.id_propietario
-    )
+  async buscarCelularImeiIdPropietario(imei, idPropietario) {
+    try {
+      const celular = await CadenaCelulares.findOne({
+        $and: [
+          { 'data.imei': imei },
+          {
+            'data.propietario.id_propietario': idPropietario,
+          },
+        ],
+      })
 
-    if (siExiste) {
-      throw new Error('El celular ya existe')
+      return celular
+    } catch (error) {
+      throw new Error(error.message)
     }
+  }
 
-    let prevCelular = this.obtenerUltimoCelular()
+  async comprarCelular(dataCelular) {
+    try {
+      const existe = await this.buscarCelularImeiIdPropietario(
+        dataCelular.imei,
+        dataCelular.propietario.id_propietario
+      )
 
-    let celular = new Celular(
-      prevCelular.index + 1,
-      dataCelular,
-      prevCelular.hash
-    )
+      if (existe) {
+        throw new Error('El celular ya existe')
+      }
 
-    this.listaCelulares.push(celular)
-    return { ok: true, mensaje: 'Celular: ' + celular.hash }
+      let prevCelular = await this.obtenerUltimoCelular()
+
+      let celular = new Celular(
+        prevCelular.index + 1,
+        dataCelular,
+        prevCelular.hash
+      )
+
+      let nuevaCadena = new CadenaCelulares(celular)
+
+      const guardado = await nuevaCadena.save()
+
+      if (!guardado) {
+        throw new Error('Error al guardar el celular')
+      }
+
+      return { ok: true, mensaje: 'Celular: ' + celular.hash }
+    } catch (error) {
+      console.log(error)
+      throw new Error(error.message)
+    }
   }
 
   async obtenerTodosCelular() {
-    const lista = await CadenaCelulares.find()
+    const lista = await CadenaCelulares.find().select('-_id -__v')
+
     return lista
   }
 

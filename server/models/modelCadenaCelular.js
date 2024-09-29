@@ -3,10 +3,12 @@ import { Schema, model } from 'mongoose'
 const cadenaCelulares = new Schema({
   index: {
     type: Number,
+    required: true,
   },
   date: {
     type: Date,
     default: Date.now,
+    required: true,
   },
   data: {
     imei: {
@@ -35,10 +37,12 @@ const cadenaCelulares = new Schema({
   },
   previousHash: {
     type: String,
+    default: '',
   },
   hash: {
     type: String,
+    required: true,
   },
 })
 
-export const CadenaCelulares = model('test', cadenaCelulares)
+export const CadenaCelulares = model('blockchain', cadenaCelulares)
