@@ -49,11 +49,11 @@ routerCelulares.post('/revender_celular', (req, res) => {
 })
 
 //  Comprobar si un celular esta reportado como robado
-routerCelulares.get('/comprobar_robo/:IMEI', (req, res) => {
+routerCelulares.get('/comprobar_robo/:IMEI', async (req, res) => {
   const { IMEI } = req.params
 
   try {
-    const { ok, mensaje } = listaCelulares.comprobarRobo(IMEI)
+    const { ok, mensaje } = await listaCelulares.comprobarRobo(IMEI)
 
     res.status(201).json({ ok, mensaje })
   } catch (error) {
@@ -62,11 +62,14 @@ routerCelulares.get('/comprobar_robo/:IMEI', (req, res) => {
 })
 
 //  Reportar un celular como robado
-routerCelulares.put('/reportar_robo/:IMEI/:idPropietario', (req, res) => {
+routerCelulares.put('/reportar_robo/:IMEI/:idPropietario', async (req, res) => {
   const { IMEI, idPropietario } = req.params
 
   try {
-    const { ok, mensaje } = listaCelulares.reportarRobo(IMEI, idPropietario)
+    const { ok, mensaje } = await listaCelulares.reportarRobo(
+      IMEI,
+      idPropietario
+    )
 
     res.status(201).json({ ok, mensaje })
   } catch (error) {
