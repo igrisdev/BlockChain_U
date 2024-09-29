@@ -31,11 +31,11 @@ routerCelulares.post('/comprar_celular', async (req, res) => {
 })
 
 //  Revender un celular
-routerCelulares.post('/revender_celular', (req, res) => {
+routerCelulares.post('/revender_celular', async (req, res) => {
   const { IMEI, nombreNuevoPropietario, idPropietario, precio } = req.body
 
   try {
-    const { ok, mensaje } = listaCelulares.revenderCelular(
+    const { ok, mensaje } = await listaCelulares.revenderCelular(
       IMEI,
       nombreNuevoPropietario,
       idPropietario,

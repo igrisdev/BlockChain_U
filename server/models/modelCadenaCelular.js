@@ -33,6 +33,7 @@ const cadenaCelulares = new Schema({
     },
     estaReportado: {
       type: Boolean,
+      default: false,
     },
   },
   previousHash: {

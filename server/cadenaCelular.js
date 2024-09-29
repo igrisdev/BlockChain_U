@@ -115,14 +115,17 @@ export class CadenaCelular {
     try {
       const siExiste = await this.existeCelular(IMEI)
 
-      if (!siExiste) {
+      if (siExiste.length == 0) {
         throw new Error('Celular NO REGISTRADO')
       }
 
       const verificarRobo = await this.buscarSiCelularReportado(IMEI)
 
       if (verificarRobo) {
-        return { ok: true, mensaje: 'Celular ' + IMEI + ' REPORTADO como ROBO' }
+        return {
+          ok: true,
+          mensaje: 'Celular ' + IMEI + ' REPORTADO como ROBADO',
+        }
       }
 
       return { ok: true, mensaje: 'Celular NO REPORTADO ' + IMEI }
@@ -165,7 +168,7 @@ export class CadenaCelular {
     try {
       const existeCelular = await this.existeCelular(IMEI)
 
-      if (!existeCelular) {
+      if (existeCelular.length == 0) {
         throw new Error('El celular no existe')
       }
 
@@ -181,14 +184,12 @@ export class CadenaCelular {
       }
 
       const nuevaVenta = {
-        ...existeCelular.data,
+        ...existeCelular[0].data,
         propietario: nuevoPropietario,
         precio: precio,
       }
 
-      console.log(nuevaVenta)
-
-      // this.comprarCelular(nuevaVenta)
+      this.comprarCelular(nuevaVenta)
 
       return { ok: true, mensaje: 'Celular revendido ' + IMEI }
     } catch (error) {
@@ -244,7 +245,7 @@ export class CadenaCelular {
 
       const actualizarReporte = await CadenaCelulares.updateOne(
         {
-          'data.imei': imei,
+          'data.imei': IMEI,
           'data.propietario.id_propietario': idPropietario,
         },
         {
@@ -252,11 +253,13 @@ export class CadenaCelular {
         }
       )
 
+      console.log(actualizarReporte)
+
       if (!actualizarReporte) {
         throw new Error('Error al actualizar el estado del reporte')
       }
 
-      return { ok: true, mensaje: 'REPORTADO EXITOSO del celular' + IMEI }
+      return { ok: true, mensaje: 'REPORTE EXITOSO del celular' + IMEI }
     } catch (error) {
       throw new Error(error.message)
     }
