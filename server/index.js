@@ -14,8 +14,6 @@ connectDB()
 
 server.use('/', routerCelulares)
 
-// server.use('/celulares', routerCelulares)
-
 server.listen(3000, () => {
   console.log('http://localhost:3000')
 })

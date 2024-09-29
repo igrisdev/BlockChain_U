@@ -1,5 +1,5 @@
 import { Celular } from './celular.js'
-import { CadenaCelulares } from './models/modelCadenaCelular.js'
+import { CadenaCelulares } from '../models/modelCadenaCelular.js'
 
 export class CadenaCelular {
   constructor(inicio) {
@@ -29,14 +29,6 @@ export class CadenaCelular {
       throw new Error('Error al crear la cadena')
     }
   }
-
-  // existeCelular(IMEI) {
-  //   if (IMEI) {
-  //     const existe = this.listaCelulares.find(({ data }) => data.imei == IMEI)
-
-  //     return existe
-  //   }
-  // }
 
   async obtenerUltimoCelular() {
     try {
@@ -100,7 +92,6 @@ export class CadenaCelular {
 
       return { ok: true, mensaje: 'Celular: ' + celular.hash }
     } catch (error) {
-      console.log(error)
       throw new Error(error.message)
     }
   }
@@ -189,7 +180,7 @@ export class CadenaCelular {
         precio: precio,
       }
 
-      this.comprarCelular(nuevaVenta)
+      await this.comprarCelular(nuevaVenta)
 
       return { ok: true, mensaje: 'Celular revendido ' + IMEI }
     } catch (error) {
@@ -252,8 +243,6 @@ export class CadenaCelular {
           $set: { 'data.estaReportado': true },
         }
       )
-
-      console.log(actualizarReporte)
 
       if (!actualizarReporte) {
         throw new Error('Error al actualizar el estado del reporte')
