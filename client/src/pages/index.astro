@@ -96,7 +96,7 @@ const listarCelulares = celulares2.slice(1).map((celular) => {
         </table>
       </div>
 <!-- http://localhost:3000/comprobar_robo/1 -->
-      <div data-section='verificar-celular'>
+      <div data-section='verificar-celular' class='hidden'>
         <div>
           <form id='form-verificar-celular' class="relative">
             <div class="relative">
@@ -106,7 +106,7 @@ const listarCelulares = celulares2.slice(1).map((celular) => {
                 </svg>
               </div>
 
-              <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm border rounded-lg bg-gray-700 border-gray-600 placeholder-gray-400 text-white" placeholder="Ingresar IMEI: 100.." required />
+              <input type="search" id="default-search" name='imei' class="block w-full p-4 ps-10 text-sm border rounded-lg bg-gray-700 border-gray-600 placeholder-gray-400 text-white" placeholder="Ingresar IMEI: 100.." required />
 
               <button type="submit" class="text-white absolute end-2.5 bottom-2.5 font-medium rounded-lg text-sm px-4 py-2 bg-blue-600 hover:bg-blue-700">Comprobar</button>
             </div>
@@ -118,8 +118,38 @@ const listarCelulares = celulares2.slice(1).map((celular) => {
         </div>
       </div>
 
-      <div data-section="comprar-celular">
-
+      <div data-section="comprar-celular" class='mt-5'>
+        <form id='form-comprar-celular' class="max-w-2xl mx-auto">
+          <div class="grid md:grid-cols-2 md:gap-6">
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="text" name="nombres" id="floating_first_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                <label for="floating_first_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nombres y Apellidos</label>
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="number" name="id_propietario" id="floating_last_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                <label for="floating_last_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Documento de Identidad</label>
+            </div>
+          </div>
+          <div class="relative z-0 w-full mb-5 group">
+              <input type="text" name="modelo" id="floating_email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+              <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Modelo del celular</label>
+          </div>
+          <div class="grid md:grid-cols-2 md:gap-6">
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="number" name="imei" id="floating_first_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                <label for="floating_first_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">IMEI único del celular</label>
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="text" name="id_propietario" id="floating_last_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                <label for="floating_last_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Marca del celular</label>
+            </div>
+          </div>
+          <div class="relative z-0 w-full mb-5 group">
+            <input type="number" name="precio" id="floating_email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+            <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Precio del celular</label>
+          </div>
+          <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Realizar Compra</button>
+        </form>
       </div>
     </section>
 
@@ -141,7 +171,6 @@ const listarCelulares = celulares2.slice(1).map((celular) => {
       todasSecciones.forEach((section: HTMLDivElement) => {
         const sectionId = section.dataset.section;
         if (sectionId === buttonSection) {
-          console.log(buttonSection, sectionId);
           section.classList.remove('hidden');
         } else {
           section.classList.add('hidden');
@@ -151,5 +180,61 @@ const listarCelulares = celulares2.slice(1).map((celular) => {
   });
 
   // verificar-celular
-  const formVerificarCelular = $('#form-verificar-celular') as NodeListOf<HTMLFormElement>;
+  const formVerificarCelular = $('#form-verificar-celular') as HTMLFormElement
+
+  formVerificarCelular.onsubmit = async (e) => {
+    e.preventDefault();
+
+    const form = new FormData(formVerificarCelular)
+
+    let response = await fetch('http://localhost:3000/comprobar_robo/' + form.get('imei'));
+
+    let result = await response.json();
+
+    if (result.ok) {
+      alert(result.mensaje);
+    } else {
+      alert("IMEI: " + form.get('imei') + " No existe");
+    }
+  };
+
+  // comprar-celular
+  const formComprarCelular = $('#form-comprar-celular') as HTMLFormElement
+
+  formComprarCelular.onsubmit = async (e) => {
+    e.preventDefault();
+
+    const form = new FormData(formComprarCelular)
+
+    const celular = {
+      imei: form.get('imei'),
+      modelo: form.get('modelo'),
+      marca: form.get('marca'),
+      precio: form.get('precio'),
+      propietario: {
+        id_propietario: form.get('id_propietario'),
+        nombres: form.get('nombres')
+      }
+    }
+
+    let response = await fetch('http://localhost:3000/comprar_celular', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(celular)
+    });
+
+    console.log(celular);
+
+    let result = await response.json();
+
+    if (result.ok) {
+      alert(result.mensaje);
+    } else {
+      alert("Error al realizar la compra del celular");
+    }
+
+    // formComprarCelular.reset();
+  };
 </script>
