@@ -1,7 +1,155 @@
 ---
+import Check from '../assets/icons/Check.astro';
+import NoCheck from '../assets/icons/NoCheck.astro';
 import Layout from '../layouts/Layout.astro';
+
+import type { CadenaCelulares, Listar } from '../env.d.ts';
+
+const columnasNames = ["Index", "Nombres", "IMEI", "Modelo", "Marca", "Precio", "Reportado", "Fecha"
+]
+
+const celulares : CadenaCelulares = await fetch('http://localhost:3000').then((res) => res.json());
+
+const celulares2 : Listar[] = celulares.listar;
+
+const listarCelulares = celulares2.slice(1).map((celular) => {
+  return {
+    index: celular.index,
+    nombres: celular.data.propietario?.nombres,
+    imei: celular.data.imei,
+    modelo: celular.data.modelo,
+    marca: celular.data.marca,
+    precio: celular.data.precio,
+    estaReportado: celular.data.estaReportado,
+    fecha: celular.date.toString().slice(0, 10)
+  }
+})
 ---
 
 <Layout title="Welcome to Astro.">
-	
+	<header class="text-center pt-4">
+    <div>
+      <h1 class='text-white text-6xl font-bold'>Celulares</h1>
+      <span class='text-lg text-amber-400'>Blockchain</span>
+    </div>
+  </header>
+
+  <main class="pt-7">
+    <section id='botones' class='flex items-center justify-center flex-wrap gap-2'>
+      <button data-section="todos-celulares" class='px-5 py-3 bg-slate-300 text-black rounded-md font-medium'>Todos los Celular</button>
+      <button data-section="verificar-celular" class='px-5 py-3 bg-red-300 text-black rounded-md font-medium'>Verificar Celular</button>
+      <button data-section="comprar-celular" class='px-5 py-3 bg-green-300 text-black rounded-md font-medium'>Comprar Celular</button>
+      <button data-section="revender-celular" class='px-5 py-3 bg-purple-300 text-black rounded-md font-medium'>Revender Celular</button>
+      <button data-section="reportar-celular" class='px-5 py-3 bg-blue-300 text-black rounded-md font-medium'>Reportar Celular</button>
+    </section>
+
+    <section id='todas-secciones' class='pt-5'>
+      <div data-section='todos-celulares' class="relative overflow-x-auto shadow-md sm:rounded-lg hidden">
+        <table class="w-full text-sm text-left text-gray-500">
+            <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-slate-300">
+                Lista de todos los celulares registrados
+                <p class="mt-1 text-sm font-normal text-gray-500">Browse a list of Flowbite products designed to help you work and play, stay organized, get answers, keep in touch, grow your business, and more.</p>
+            </caption>
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <tr>
+                  {
+                    columnasNames.map((columna) => {
+                      return (
+                        <th scope="col" class="px-6 py-3">
+                          {columna}
+                        </th>
+                      )
+                    })
+                  }
+                </tr>
+            </thead>
+            <tbody>
+              {listarCelulares.map(({index, nombres, imei, modelo, marca, precio, estaReportado, fecha} ): Listar => (
+                <tr class="bg-slate-300 border-b">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        {index}
+                    </th>
+                    <td class="px-6 py-4">
+                        {nombres}
+                    </td>
+                    <td class="px-6 py-4">
+                        {imei}
+                    </td>
+                    <td class="px-6 py-4">
+                        {modelo}
+                    </td>
+                    <td class="px-6 py-4">
+                        {marca}
+                    </td>
+                    <td class="px-6 py-4">
+                        {precio}
+                    </td>
+                    <td class="px-6 py-4 flex items-center justify-center">
+                        {estaReportado ? <Check class='text-green-500' /> : <NoCheck class='text-red-500' />}
+                    </td>
+                    <td class="px-6 py-4">
+                        {fecha}
+                    </td>
+                </tr>
+              ))}
+            </tbody>
+        </table>
+      </div>
+<!-- http://localhost:3000/comprobar_robo/1 -->
+      <div data-section='verificar-celular'>
+        <div>
+          <form id='form-verificar-celular' class="relative">
+            <div class="relative">
+              <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+              </div>
+
+              <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm border rounded-lg bg-gray-700 border-gray-600 placeholder-gray-400 text-white" placeholder="Ingresar IMEI: 100.." required />
+
+              <button type="submit" class="text-white absolute end-2.5 bottom-2.5 font-medium rounded-lg text-sm px-4 py-2 bg-blue-600 hover:bg-blue-700">Comprobar</button>
+            </div>
+          </form>
+        </div>
+
+        <div>
+
+        </div>
+      </div>
+
+      <div data-section="comprar-celular">
+
+      </div>
+    </section>
+
+  </main>
 </Layout>
+
+
+<script>
+  const $ = (selector: string) => document.querySelector(selector);
+  const $$ = (selector: string) => document.querySelectorAll(selector);
+
+  const todasSecciones = $$('#todas-secciones > div') as NodeListOf<HTMLDivElement>;
+  const sectionButtons = $$('#botones button') as NodeListOf<HTMLButtonElement>;
+
+  sectionButtons.forEach((button: HTMLButtonElement) => {
+    button.addEventListener('click', (e) => {
+      const buttonSection = (e.currentTarget as HTMLButtonElement).dataset.section;
+
+      todasSecciones.forEach((section: HTMLDivElement) => {
+        const sectionId = section.dataset.section;
+        if (sectionId === buttonSection) {
+          console.log(buttonSection, sectionId);
+          section.classList.remove('hidden');
+        } else {
+          section.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // verificar-celular
+  const formVerificarCelular = $('#form-verificar-celular') as NodeListOf<HTMLFormElement>;
+</script>
