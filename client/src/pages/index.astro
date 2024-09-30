@@ -47,7 +47,7 @@ console.log(listarCelulares);
     </section>
 
     <section id='todas-secciones' class='py-5'>
-      <div data-section='todos-celulares' class="relative overflow-x-auto overflow-y-auto max-h-[600px] shadow-md sm:rounded-lg hidden">
+      <div data-section='todos-celulares' class="relative overflow-x-auto overflow-y-auto max-h-[600px] shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500">
             <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-slate-300">
                 Lista de todos los celulares registrados
@@ -176,7 +176,7 @@ console.log(listarCelulares);
                 <label for="floating_first_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">IMEI único del celular</label>
             </div>
             <div class="relative z-0 w-full mb-5 group">
-                <input type="number" name="id_propietario" id="floating_last_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                <input type="number" name="precio" id="floating_last_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                 <label for="floating_last_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Precio del celular</label>
             </div>
           </div>
@@ -184,7 +184,7 @@ console.log(listarCelulares);
         </form>
       </div>
 
-      <div data-section="reportar-celular" class='mt-5'>
+      <div data-section="reportar-celular" class='mt-5 hidden'>
         <form id='form-reportar-celular' class="max-w-2xl mx-auto">
           <div class="relative z-0 w-full mb-5 group">
               <input type="text" name="IMEI" id="floating_email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
