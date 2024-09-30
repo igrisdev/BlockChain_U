@@ -95,7 +95,7 @@ const listarCelulares = celulares2.slice(1).map((celular) => {
             </tbody>
         </table>
       </div>
-<!-- http://localhost:3000/comprobar_robo/1 -->
+
       <div data-section='verificar-celular' class='hidden'>
         <div>
           <form id='form-verificar-celular' class="relative">
@@ -118,7 +118,7 @@ const listarCelulares = celulares2.slice(1).map((celular) => {
         </div>
       </div>
 
-      <div data-section="comprar-celular" class='mt-5'>
+      <div data-section="comprar-celular" class='mt-5 hidden'>
         <form id='form-comprar-celular' class="max-w-2xl mx-auto">
           <div class="grid md:grid-cols-2 md:gap-6">
             <div class="relative z-0 w-full mb-5 group">
@@ -151,6 +151,8 @@ const listarCelulares = celulares2.slice(1).map((celular) => {
           <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Realizar Compra</button>
         </form>
       </div>
+
+      
     </section>
 
   </main>
@@ -194,8 +196,10 @@ const listarCelulares = celulares2.slice(1).map((celular) => {
     if (result.ok) {
       alert(result.mensaje);
     } else {
-      alert("IMEI: " + form.get('imei') + " No existe");
+      alert(result);
     }
+
+    formVerificarCelular.reset();
   };
 
   // comprar-celular
@@ -225,16 +229,14 @@ const listarCelulares = celulares2.slice(1).map((celular) => {
       body: JSON.stringify(celular)
     });
 
-    console.log(celular);
-
     let result = await response.json();
 
     if (result.ok) {
       alert(result.mensaje);
     } else {
-      alert("Error al realizar la compra del celular");
+      alert(result);
     }
 
-    // formComprarCelular.reset();
+    formComprarCelular.reset();
   };
 </script>
