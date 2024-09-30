@@ -5,7 +5,7 @@ import Layout from '../layouts/Layout.astro';
 
 import type { CadenaCelulares, Listar } from '../env.d.ts';
 
-const columnasNames = ["Index", "Nombres", "IMEI", "Modelo", "Marca", "Precio", "Reportado", "Fecha"
+const columnasNames = ["Index", "Nombres", "Documento", "IMEI", "Modelo", "Marca", "Precio", "Reportado", "Fecha"
 ]
 
 const celulares : CadenaCelulares = await fetch('http://localhost:3000').then((res) => res.json());
@@ -16,6 +16,7 @@ const listarCelulares = celulares2.slice(1).map((celular) => {
   return {
     index: celular.index,
     nombres: celular.data.propietario?.nombres,
+    documento: celular.data.propietario?.id_propietario,
     imei: celular.data.imei,
     modelo: celular.data.modelo,
     marca: celular.data.marca,
@@ -24,6 +25,8 @@ const listarCelulares = celulares2.slice(1).map((celular) => {
     fecha: celular.date.toString().slice(0, 10)
   }
 })
+
+console.log(listarCelulares);
 ---
 
 <Layout title="Welcome to Astro.">
@@ -43,8 +46,8 @@ const listarCelulares = celulares2.slice(1).map((celular) => {
       <button data-section="reportar-celular" class='px-5 py-3 bg-blue-300 text-black rounded-md font-medium'>Reportar Celular</button>
     </section>
 
-    <section id='todas-secciones' class='pt-5'>
-      <div data-section='todos-celulares' class="relative overflow-x-auto shadow-md sm:rounded-lg hidden">
+    <section id='todas-secciones' class='py-5'>
+      <div data-section='todos-celulares' class="relative overflow-x-auto overflow-y-auto max-h-[600px] shadow-md sm:rounded-lg hidden">
         <table class="w-full text-sm text-left text-gray-500">
             <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-slate-300">
                 Lista de todos los celulares registrados
@@ -64,13 +67,16 @@ const listarCelulares = celulares2.slice(1).map((celular) => {
                 </tr>
             </thead>
             <tbody>
-              {listarCelulares.map(({index, nombres, imei, modelo, marca, precio, estaReportado, fecha} ): Listar => (
+              {listarCelulares.map(({index, nombres, documento, imei, modelo, marca, precio, estaReportado, fecha} ): Listar => (
                 <tr class="bg-slate-300 border-b">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                         {index}
                     </th>
                     <td class="px-6 py-4">
                         {nombres}
+                    </td>
+                    <td class="px-6 py-4">
+                        {documento}
                     </td>
                     <td class="px-6 py-4">
                         {imei}
@@ -140,7 +146,7 @@ const listarCelulares = celulares2.slice(1).map((celular) => {
                 <label for="floating_first_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">IMEI único del celular</label>
             </div>
             <div class="relative z-0 w-full mb-5 group">
-                <input type="text" name="id_propietario" id="floating_last_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                <input type="text" name="marca" id="floating_last_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                 <label for="floating_last_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Marca del celular</label>
             </div>
           </div>
@@ -152,7 +158,45 @@ const listarCelulares = celulares2.slice(1).map((celular) => {
         </form>
       </div>
 
-      
+      <div data-section="revender-celular" class='mt-5 hidden'>
+        <form id='form-revender-celular' class="max-w-2xl mx-auto">
+          <div class="grid md:grid-cols-2 md:gap-6">
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="text" name="nombreNuevoPropietario" id="floating_first_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                <label for="floating_first_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nombres y Apellidos</label>
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="number" name="idPropietario" id="floating_last_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                <label for="floating_last_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Documento de Identidad</label>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-2 md:gap-6">
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="number" name="IMEI" id="floating_first_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                <label for="floating_first_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">IMEI único del celular</label>
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <input type="number" name="id_propietario" id="floating_last_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                <label for="floating_last_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Precio del celular</label>
+            </div>
+          </div>
+          <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Revender Celular</button>
+        </form>
+      </div>
+
+      <div data-section="reportar-celular" class='mt-5'>
+        <form id='form-reportar-celular' class="max-w-2xl mx-auto">
+          <div class="relative z-0 w-full mb-5 group">
+              <input type="text" name="IMEI" id="floating_email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+              <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">IMEI único del celular</label>
+          </div>
+          <div class="relative z-0 w-full mb-5 group">
+            <input type="number" name="idPropietario" id="floating_email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+            <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Documento de Identidad</label>
+          </div>
+          <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Reportar Celular</button>
+        </form>
+      </div>
     </section>
 
   </main>
@@ -238,5 +282,62 @@ const listarCelulares = celulares2.slice(1).map((celular) => {
     }
 
     formComprarCelular.reset();
+  };
+
+  // revender-celular
+  const formRevenderCelular = $('#form-revender-celular') as HTMLFormElement
+
+  formRevenderCelular.onsubmit = async (e) => {
+    e.preventDefault();
+
+    const form = new FormData(formRevenderCelular)
+
+    const celular = {
+      IMEI: form.get('IMEI'),
+      precio: form.get('precio'),
+      idPropietario: form.get('idPropietario'),
+      nombreNuevoPropietario: form.get('nombreNuevoPropietario')
+    }
+
+    let response = await fetch('http://localhost:3000/revender_celular', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(celular)
+    });
+
+    let result = await response.json();
+
+    if (result.ok) {
+      alert(result.mensaje);
+    } else {
+      alert(result);
+    }
+
+    formRevenderCelular.reset();
+  };
+
+  // comprar-celular
+  const formReportarCelular = $('#form-reportar-celular') as HTMLFormElement
+
+  formReportarCelular.onsubmit = async (e) => {
+    e.preventDefault();
+
+    const form = new FormData(formReportarCelular)
+
+    let response = await fetch(`http://localhost:3000/reportar_robo/${form.get('IMEI')}/${form.get('idPropietario')}`, {
+      method: 'PUT'
+    });
+
+    let result = await response.json();
+
+    if (result.ok) {
+      alert(result.mensaje);
+    } else {
+      alert(result);
+    }
+
+    formReportarCelular.reset();
   };
 </script>

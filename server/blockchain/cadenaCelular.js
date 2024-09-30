@@ -248,7 +248,7 @@ export class CadenaCelular {
         throw new Error('Error al actualizar el estado del reporte')
       }
 
-      return { ok: true, mensaje: 'REPORTE EXITOSO del celular' + IMEI }
+      return { ok: true, mensaje: 'REPORTE EXITOSO del celular ' + IMEI }
     } catch (error) {
       throw new Error(error.message)
     }
