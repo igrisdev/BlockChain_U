@@ -160,63 +160,30 @@ export class CadenaCelular {
     }
   }
 
-  // async comprarCelular(dataCelular) {
-  //   try {
-  //     const existe = await this.buscarCelularImeiIdPropietario(
-  //       dataCelular.imei,
-  //       dataCelular.propietario.id_propietario
-  //     )
-
-  //     if (existe) {
-  //       throw new Error('El celular ya existe')
-  //     }
-
-  //     let prevCelular = await this.obtenerUltimoCelular()
-
-  //     let celular = new Celular(
-  //       prevCelular.index + 1,
-  //       dataCelular,
-  //       prevCelular.hash
-  //     )
-
-  //     let nuevaCadena = new CadenaCelulares(celular)
-
-  //     const guardado = await nuevaCadena.save()
-
-  //     if (!guardado) {
-  //       throw new Error('Error al guardar el celular')
-  //     }
-
-  //     return { ok: true, mensaje: 'Celular: ' + celular.hash }
-  //   } catch (error) {
-  //     throw new Error(error.message)
-  //   }
-  // }
-
   async obtenerTodosCelular() {
     const lista = await CadenaCelulares.find().select('-_id -__v')
 
     return lista
   }
 
-  async comprobarRobo(IMEI) {
+  async comprobarRobo(imei) {
     try {
-      const siExiste = await this.existeCelular(IMEI)
+      const siExiste = await this.existeCelular(imei)
 
       if (siExiste.length == 0) {
         throw new Error('Celular NO REGISTRADO')
       }
 
-      const verificarRobo = await this.buscarSiCelularReportado(IMEI)
+      const verificarRobo = await this.buscarSiCelularReportado(imei)
 
       if (verificarRobo) {
         return {
           ok: true,
-          mensaje: 'Celular ' + IMEI + ' REPORTADO como ROBADO',
+          mensaje: 'Celular ' + imei + ' REPORTADO como ROBADO',
         }
       }
 
-      return { ok: true, mensaje: 'Celular NO REPORTADO ' + IMEI }
+      return { ok: true, mensaje: 'Celular NO REPORTADO ' + imei }
     } catch (error) {
       throw new Error(error.message)
     }
