@@ -14,7 +14,6 @@ server.use(cors())
 
 connectDB()
 
-// server.use('/', routerCelulares)
 server.use('/fabricante', routerFabricante)
 server.use('/distribuidor', routerDistribuidor)
 server.use('/usuario', routerUsuario)

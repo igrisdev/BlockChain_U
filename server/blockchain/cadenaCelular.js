@@ -64,14 +64,11 @@ export class CadenaCelular {
 
   async registrarCelular(dataCelular) {
     try {
-      // const existe = await this.buscarCelularImeiIdPropietario(
-      //   dataCelular.imei,
-      //   dataCelular.propietario.id_propietario
-      // )
+      const existe = await this.existeCelular(dataCelular.imei)
 
-      // if (existe) {
-      //   throw new Error('El celular ya existe')
-      // }
+      if (existe) {
+        throw new Error('El celular ya existe')
+      }
 
       let prevCelular = await this.obtenerUltimoCelular()
 
@@ -154,7 +151,7 @@ export class CadenaCelular {
         }
       )
 
-      return { ok: true, mensaje: 'Celular revendido ' + imei }
+      return { ok: true, mensaje: 'Celular adquirido ' + imei }
     } catch (error) {
       throw new Error(error.message)
     }
@@ -206,9 +203,9 @@ export class CadenaCelular {
     }
   }
 
-  async existeCelular(IMEI) {
+  async existeCelular(imei) {
     try {
-      const existe = await CadenaCelulares.find({ 'data.imei': IMEI })
+      const existe = await CadenaCelulares.findOne({ 'data.imei': imei })
         .select('-_id -__v')
         .sort({ date: -1 })
         .limit(1)
@@ -239,7 +236,7 @@ export class CadenaCelular {
     }
   }
 
-  async reportarRobo({ imei, id_propietario }) {
+  async reportarRobo({ imei, id_propietario, estado }) {
     try {
       const yaReportado = await this.buscarReportadoCelularImeiIdPropietario(
         imei,
@@ -271,7 +268,10 @@ export class CadenaCelular {
           'data.propietario.id_propietario': id_propietario,
         },
         {
-          $set: { 'data.estaReportado': true },
+          $set: {
+            'data.estado': estado,
+            'data.estaReportado': true,
+          },
         }
       )
 

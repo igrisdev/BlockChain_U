@@ -36,3 +36,17 @@ http://localhost:3000/distribuidor/vender_celular
 }
 
 USUARIO
+
+POST /reportar_celular
+
+http://localhost:3000/usuario/reportar_celular
+
+{
+  "imei": 5,
+  "id_propietario": 1,
+  "estado": "En venta"
+}
+
+GET /verificar_robo/:imei
+
+http://localhost:3000/usuario/verificar_robo/5
