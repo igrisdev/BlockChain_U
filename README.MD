@@ -1,35 +1,38 @@
 Métodos
 
-GET
-http://localhost:3000
+FABRICANTE
+POST /registrar_celular
 
-POST
-http://localhost:3000/comprar_celular
-
-{
-  "imei": 1020,
-  "modelo": "11 PRO MAX",
-  "marca": "Iphone",
-  "precio": 2000000,
-  "propietario": {
-    "id_propietario": 100348451,
-    "nombres": "Johan Pinta"
-  },
-  "estaReportado": false
-}
-
-POST
-http://localhost:3000/revender_celular
+http://localhost:3000/fabricante/registrar_celular
 
 {
-  "IMEI": 1020,
-  "precio": 121212,
-  "idPropietario": 111,
-  "nombreNuevoPropietario": "camilo"
+  "fabricante": "Samsumg",
+  "estado": "En fabrica",
+  "imei": 5,
+  "modelo": "3",
+  "marca": "3"
 }
 
-GET
-http://localhost:3000/comprobar_robo/1020
+DISTRIBUIDOR
+POST /adquirir_celular
 
-PUT
-http://localhost:3000/reportar_robo/1020/111
+http://localhost:3000/distribuidor/adquirir_celular
+
+{
+  "imei": 5,
+  "distribuidor": "Juan",
+  "estado": "En distribución"
+}
+
+POST /vender_celular
+
+http://localhost:3000/distribuidor/vender_celular
+
+{
+  "imei": 5,
+  "id_propietario": 1,
+  "nombres": "Juan",
+  "estado": "En venta"
+}
+
+USUARIO

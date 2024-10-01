@@ -126,6 +126,40 @@ export class CadenaCelular {
       throw new Error(error.message)
     }
   }
+
+  async venderCelular({ imei, id_propietario, nombres, estado }) {
+    try {
+      const existeCelular = await this.existeCelular(imei)
+
+      if (existeCelular.length == 0) {
+        throw new Error('El celular no existe')
+      }
+
+      const estaReportado = await this.buscarSiCelularReportado(imei)
+
+      if (estaReportado) {
+        throw new Error('El celular esta REPORTADO')
+      }
+
+      await CadenaCelulares.updateOne(
+        {
+          'data.imei': imei,
+        },
+        {
+          $set: {
+            'data.propietario.id_propietario': id_propietario,
+            'data.propietario.nombres': nombres,
+            'data.estado': estado,
+          },
+        }
+      )
+
+      return { ok: true, mensaje: 'Celular revendido ' + imei }
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  }
+
   // async comprarCelular(dataCelular) {
   //   try {
   //     const existe = await this.buscarCelularImeiIdPropietario(
@@ -218,39 +252,6 @@ export class CadenaCelular {
     }
   }
 
-  async revenderCelular(IMEI, nombreNuevoPropietario, idPropietario, precio) {
-    try {
-      const existeCelular = await this.existeCelular(IMEI)
-
-      if (existeCelular.length == 0) {
-        throw new Error('El celular no existe')
-      }
-
-      const estaReportado = await this.buscarSiCelularReportado(IMEI)
-
-      if (estaReportado) {
-        throw new Error('El celular esta REPORTADO')
-      }
-
-      const nuevoPropietario = {
-        id_propietario: idPropietario,
-        nombres: nombreNuevoPropietario,
-      }
-
-      const nuevaVenta = {
-        ...existeCelular[0].data,
-        propietario: nuevoPropietario,
-        precio: precio,
-      }
-
-      await this.comprarCelular(nuevaVenta)
-
-      return { ok: true, mensaje: 'Celular revendido ' + IMEI }
-    } catch (error) {
-      throw new Error(error.message)
-    }
-  }
-
   async buscarReportadoCelularImeiIdPropietario(imei, idPropietario) {
     try {
       const celular = await CadenaCelulares.findOne({
@@ -271,11 +272,11 @@ export class CadenaCelular {
     }
   }
 
-  async reportarRobo(IMEI, idPropietario) {
+  async reportarRobo({ imei, id_propietario }) {
     try {
       const yaReportado = await this.buscarReportadoCelularImeiIdPropietario(
-        IMEI,
-        idPropietario
+        imei,
+        id_propietario
       )
 
       if (yaReportado) {
@@ -283,24 +284,24 @@ export class CadenaCelular {
       }
 
       const existe = await this.buscarCelularImeiIdPropietario(
-        IMEI,
-        idPropietario
+        imei,
+        id_propietario
       )
 
       if (!existe) {
         throw new Error(
-          'El celular con IMEI ' +
-            IMEI +
+          'El celular con imei ' +
+            imei +
             ' y PROPIETARIO ' +
-            idPropietario +
+            id_propietario +
             ' no existe.'
         )
       }
 
       const actualizarReporte = await CadenaCelulares.updateOne(
         {
-          'data.imei': IMEI,
-          'data.propietario.id_propietario': idPropietario,
+          'data.imei': imei,
+          'data.propietario.id_propietario': id_propietario,
         },
         {
           $set: { 'data.estaReportado': true },
@@ -311,7 +312,7 @@ export class CadenaCelular {
         throw new Error('Error al actualizar el estado del reporte')
       }
 
-      return { ok: true, mensaje: 'REPORTE EXITOSO del celular ' + IMEI }
+      return { ok: true, mensaje: 'REPORTE EXITOSO del celular ' + imei }
     } catch (error) {
       throw new Error(error.message)
     }
