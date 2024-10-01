@@ -3,7 +3,6 @@ import { CadenaCelulares } from '../models/modelCadenaCelular.js'
 
 export class CadenaCelular {
   constructor(inicio) {
-    this.listaCelulares = []
     this.crearPuntoInicio(inicio)
   }
 
@@ -63,16 +62,16 @@ export class CadenaCelular {
     }
   }
 
-  async comprarCelular(dataCelular) {
+  async registrarCelular(dataCelular) {
     try {
-      const existe = await this.buscarCelularImeiIdPropietario(
-        dataCelular.imei,
-        dataCelular.propietario.id_propietario
-      )
+      // const existe = await this.buscarCelularImeiIdPropietario(
+      //   dataCelular.imei,
+      //   dataCelular.propietario.id_propietario
+      // )
 
-      if (existe) {
-        throw new Error('El celular ya existe')
-      }
+      // if (existe) {
+      //   throw new Error('El celular ya existe')
+      // }
 
       let prevCelular = await this.obtenerUltimoCelular()
 
@@ -95,6 +94,70 @@ export class CadenaCelular {
       throw new Error(error.message)
     }
   }
+
+  async adquirirCelular({ imei, distribuidor, estado }) {
+    try {
+      const existeCelular = await this.existeCelular(imei)
+
+      if (existeCelular.length == 0) {
+        throw new Error('El celular no existe')
+      }
+
+      const estaReportado = await this.buscarSiCelularReportado(imei)
+
+      if (estaReportado) {
+        throw new Error('El celular esta REPORTADO')
+      }
+
+      await CadenaCelulares.updateOne(
+        {
+          'data.imei': imei,
+        },
+        {
+          $set: {
+            'data.distribuidor': distribuidor,
+            'data.estado': estado,
+          },
+        }
+      )
+
+      return { ok: true, mensaje: 'Celular revendido ' + imei }
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  }
+  // async comprarCelular(dataCelular) {
+  //   try {
+  //     const existe = await this.buscarCelularImeiIdPropietario(
+  //       dataCelular.imei,
+  //       dataCelular.propietario.id_propietario
+  //     )
+
+  //     if (existe) {
+  //       throw new Error('El celular ya existe')
+  //     }
+
+  //     let prevCelular = await this.obtenerUltimoCelular()
+
+  //     let celular = new Celular(
+  //       prevCelular.index + 1,
+  //       dataCelular,
+  //       prevCelular.hash
+  //     )
+
+  //     let nuevaCadena = new CadenaCelulares(celular)
+
+  //     const guardado = await nuevaCadena.save()
+
+  //     if (!guardado) {
+  //       throw new Error('Error al guardar el celular')
+  //     }
+
+  //     return { ok: true, mensaje: 'Celular: ' + celular.hash }
+  //   } catch (error) {
+  //     throw new Error(error.message)
+  //   }
+  // }
 
   async obtenerTodosCelular() {
     const lista = await CadenaCelulares.find().select('-_id -__v')

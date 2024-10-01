@@ -11,6 +11,10 @@ const cadenaCelulares = new Schema({
     required: true,
   },
   data: {
+    fabricante: String,
+    estado: {
+      type: String,
+    },
     imei: {
       type: Number,
     },
@@ -20,9 +24,10 @@ const cadenaCelulares = new Schema({
     marca: {
       type: String,
     },
-    precio: {
-      type: Number,
+    estaReportado: {
+      type: Boolean,
     },
+    distribuidor: String,
     propietario: {
       id_propietario: {
         type: Number,
@@ -30,10 +35,6 @@ const cadenaCelulares = new Schema({
       nombres: {
         type: String,
       },
-    },
-    estaReportado: {
-      type: Boolean,
-      default: false,
     },
   },
   previousHash: {
