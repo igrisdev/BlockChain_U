@@ -72,6 +72,8 @@ export class CadenaCelular {
 
       let prevCelular = await this.obtenerUltimoCelular()
 
+      dataCelular.estado = 'En Fabrica'
+
       let celular = new Celular(
         prevCelular.index + 1,
         dataCelular,
