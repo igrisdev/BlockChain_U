@@ -94,7 +94,7 @@ export class CadenaCelular {
     }
   }
 
-  async adquirirCelular({ imei, distribuidor, estado }) {
+  async adquirirCelular({ imei, distribuidor, estado = 'En El Distribuidor' }) {
     try {
       const existeCelular = await this.existeCelular(imei)
 
@@ -126,7 +126,12 @@ export class CadenaCelular {
     }
   }
 
-  async venderCelular({ imei, id_propietario, nombres, estado }) {
+  async venderCelular({
+    imei,
+    id_propietario,
+    nombres,
+    estado = 'Vendido A Un Cliente',
+  }) {
     try {
       const existeCelular = await this.existeCelular(imei)
 
@@ -238,7 +243,11 @@ export class CadenaCelular {
     }
   }
 
-  async reportarRobo({ imei, id_propietario, estado }) {
+  async reportarRobo({
+    imei,
+    id_propietario,
+    estado = 'Reportado Como Robado',
+  }) {
     try {
       const yaReportado = await this.buscarReportadoCelularImeiIdPropietario(
         imei,

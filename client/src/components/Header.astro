@@ -1,6 +1,8 @@
 ---
 const tipoUsuario = Astro.url.pathname.split('/')[1]
 
+const usuario = tipoUsuario.charAt(0).toUpperCase() + tipoUsuario.slice(1)
+
 type Buttons = {
   nombre: string
   section: string
@@ -10,7 +12,7 @@ type Buttons = {
 
 const botones: Buttons[] = [
   {
-    nombre: 'Adquirir Celular',
+    nombre: 'Adquirir Celular De Fabrica',
     section: 'adquirir-celular',
     usuario: 'distribuidor',
     color: 'bg-yellow-300',
@@ -19,7 +21,7 @@ const botones: Buttons[] = [
     nombre: 'Vender Celular',
     section: 'vender-celular',
     usuario: 'distribuidor',
-    color: 'bg-red-300',
+    color: 'bg-green-300',
   },
   {
     nombre: 'Verificar Celular',
@@ -40,7 +42,7 @@ const botones: Buttons[] = [
   <div>
     <h1 class='text-white text-6xl font-bold'>Celulares</h1>
     <h2 class='text-3xl text-red-400'>
-      {tipoUsuario ?? `Usuario: ${tipoUsuario}`}
+      {usuario}
     </h2>
     <span class='text-lg text-amber-400'>Blockchain</span>
   </div>

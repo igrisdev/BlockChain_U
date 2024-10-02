@@ -1,41 +1,5 @@
 ---
-import Check from '../assets/icons/Check.astro'
-import NoCheck from '../assets/icons/NoCheck.astro'
 import Layout from '../layouts/Layout.astro'
-
-import type { CadenaCelulares, Listar } from '../env.d.ts'
-
-const columnasNames = [
-  'Index',
-  'Nombres',
-  'Documento',
-  'IMEI',
-  'Modelo',
-  'Marca',
-  'Precio',
-  'Reportado',
-  'Fecha',
-]
-
-// const celulares : CadenaCelulares = await fetch('http://localhost:3000').then((res) => res.json());
-
-// const celulares2 : Listar[] = celulares.listar;
-
-// const listarCelulares = celulares2.slice(1).map((celular) => {
-//   return {
-//     index: celular.index,
-//     nombres: celular.data.propietario?.nombres,
-//     documento: celular.data.propietario?.id_propietario,
-//     imei: celular.data.imei,
-//     modelo: celular.data.modelo,
-//     marca: celular.data.marca,
-//     precio: celular.data.precio,
-//     estaReportado: celular.data.estaReportado,
-//     fecha: celular.date.toString().slice(0, 10)
-//   }
-// })
-
-const listarCelulares = []
 ---
 
 <Layout title='Welcome to Astro.'>
@@ -46,12 +10,12 @@ const listarCelulares = []
       >Fabricante</a
     >
     <a
-      href='/fabricante'
+      href='/distribuidor'
       class='min-w-[150px] text-center px-5 py-3 border-white border-[1px] font-medium bg-transparent text-white hover:bg-white hover:text-black transition-colors duration-300'
       >Distribuidor</a
     >
     <a
-      href='/fabricante'
+      href='/usuario'
       class='min-w-[150px] text-center px-5 py-3 border-white border-[1px] font-medium bg-transparent text-white hover:bg-white hover:text-black transition-colors duration-300'
       >Usuario</a
     >

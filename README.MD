@@ -6,11 +6,10 @@ POST /registrar_celular
 http://localhost:3000/fabricante/registrar_celular
 
 {
-  "fabricante": "Samsumg",
-  "estado": "En fabrica",
-  "imei": 5,
-  "modelo": "3",
-  "marca": "3"
+"fabricante": "Samsumg",
+"imei": 5,
+"modelo": "3",
+"marca": "3"
 }
 
 DISTRIBUIDOR
@@ -19,9 +18,8 @@ POST /adquirir_celular
 http://localhost:3000/distribuidor/adquirir_celular
 
 {
-  "imei": 5,
-  "distribuidor": "Juan",
-  "estado": "En distribución"
+"imei": 5,
+"distribuidor": "Juan",
 }
 
 POST /vender_celular
@@ -29,10 +27,9 @@ POST /vender_celular
 http://localhost:3000/distribuidor/vender_celular
 
 {
-  "imei": 5,
-  "id_propietario": 1,
-  "nombres": "Juan",
-  "estado": "En venta"
+"imei": 5,
+"id_propietario": 1,
+"nombres": "Juan",
 }
 
 USUARIO
@@ -42,9 +39,8 @@ POST /reportar_celular
 http://localhost:3000/usuario/reportar_celular
 
 {
-  "imei": 5,
-  "id_propietario": 1,
-  "estado": "En venta"
+"imei": 5,
+"id_propietario": 1,
 }
 
 GET /verificar_robo/:imei
