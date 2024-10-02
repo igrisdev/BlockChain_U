@@ -1,44 +1,91 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Layout from '../layouts/Layout.astro'
 ---
 
-<Layout title="Welcome to Astro.">
-  <main class="">
+<Layout title='Welcome to Astro.'>
+  <main class=''>
     <h3 class='text-center text-2xl font-bold mb-2'>Registrar Celular</h3>
-    <form id='form-registrar-celular' class="max-w-2xl mx-auto">
-      <div class="grid md:grid-cols-2 md:gap-6">
-        <div class="relative z-0 w-full mb-5 group">
-            <input type="text" name="fabricante" id="floating_first_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-            <label for="floating_first_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nombre Fabricante</label>
+    <form id='form-registrar-celular' class='max-w-2xl mx-auto'>
+      <div class='grid md:grid-cols-2 md:gap-6'>
+        <div class='relative z-0 w-full mb-5 group'>
+          <input
+            type='text'
+            name='fabricante'
+            id='floating_first_name'
+            class='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
+            placeholder=' '
+            required
+          />
+          <label
+            for='floating_first_name'
+            class='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
+            >Nombre Fabricante</label
+          >
         </div>
-        <div class="relative z-0 w-full mb-5 group">
-            <input type="number" name="imei" id="floating_last_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-            <label for="floating_last_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">IMEI único del celular</label>
+        <div class='relative z-0 w-full mb-5 group'>
+          <input
+            type='number'
+            name='imei'
+            id='floating_last_name'
+            class='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
+            placeholder=' '
+            required
+          />
+          <label
+            for='floating_last_name'
+            class='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
+            >IMEI único del celular</label
+          >
         </div>
       </div>
-      <div class="grid md:grid-cols-2 md:gap-6">
-        <div class="relative z-0 w-full mb-5 group">
-            <input type="text" name="modelo" id="floating_first_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-            <label for="floating_first_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Modelo del celular</label>
+      <div class='grid md:grid-cols-2 md:gap-6'>
+        <div class='relative z-0 w-full mb-5 group'>
+          <input
+            type='text'
+            name='modelo'
+            id='floating_first_name'
+            class='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
+            placeholder=' '
+            required
+          />
+          <label
+            for='floating_first_name'
+            class='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
+            >Modelo del celular</label
+          >
         </div>
-        <div class="relative z-0 w-full mb-5 group">
-            <input type="text" name="marca" id="floating_last_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-            <label for="floating_last_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Marca del celular</label>
+        <div class='relative z-0 w-full mb-5 group'>
+          <input
+            type='text'
+            name='marca'
+            id='floating_last_name'
+            class='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
+            placeholder=' '
+            required
+          />
+          <label
+            for='floating_last_name'
+            class='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
+            >Marca del celular</label
+          >
         </div>
       </div>
-      <button type="submit" class="bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Registrar Celular</button>
+      <button
+        type='submit'
+        class='bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+        >Registrar Celular</button
+      >
     </form>
   </main>
 </Layout>
 
-
 <script>
-  const $ = (selector: string) => document.querySelector(selector);
+  const $ = (selector: string) => document.querySelector(selector)
 
   const formRegistrarCelular = $('#form-registrar-celular') as HTMLFormElement
 
-  formRegistrarCelular.onsubmit = async (e) => {
-    e.preventDefault();
+  formRegistrarCelular.onsubmit = async e => {
+    e.preventDefault()
 
     const form = new FormData(formRegistrarCelular)
 
@@ -46,25 +93,28 @@ import Layout from "../layouts/Layout.astro";
       fabricante: form.get('fabricante'),
       imei: form.get('imei'),
       modelo: form.get('modelo'),
-      marca: form.get('marca')
+      marca: form.get('marca'),
     }
 
-    let response = await fetch('http://localhost:3000/fabricante/registrar_celular', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(celular)
-    });
+    let response = await fetch(
+      'http://localhost:3000/fabricante/registrar_celular',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(celular),
+      }
+    )
 
-    let result = await response.json();
+    let result = await response.json()
 
     if (result.ok) {
-      alert(result.mensaje);
+      alert(result.mensaje)
     } else {
-      alert(result);
+      alert(result)
     }
 
-    formRegistrarCelular.reset();
-  };
+    formRegistrarCelular.reset()
+  }
 </script>

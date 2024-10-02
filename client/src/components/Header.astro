@@ -2,52 +2,61 @@
 const tipoUsuario = Astro.url.pathname.split('/')[1]
 
 type Buttons = {
-  nombre: string,
-  section: string,
-  usuario: string,
+  nombre: string
+  section: string
+  usuario: string
   color: string
 }
 
-const botones : Buttons[] = [
+const botones: Buttons[] = [
   {
-    nombre: "Adquirir Celular",
-    section: "adquirir-celular",
-    usuario: "distribuidor",
-    color: "bg-yellow-300"
+    nombre: 'Adquirir Celular',
+    section: 'adquirir-celular',
+    usuario: 'distribuidor',
+    color: 'bg-yellow-300',
   },
   {
-    nombre: "Vender Celular",
-    section: "vender-celular",
-    usuario: "distribuidor",
-    color: "bg-red-300"
+    nombre: 'Vender Celular',
+    section: 'vender-celular',
+    usuario: 'distribuidor',
+    color: 'bg-red-300',
   },
   {
-    nombre: "Verificar Celular",
-    section: "verificar-celular",
-    usuario: "usuario",
-    color: "bg-blue-300"
+    nombre: 'Verificar Celular',
+    section: 'verificar-celular',
+    usuario: 'usuario',
+    color: 'bg-blue-300',
   },
   {
-    nombre: "Reportar Celular",
-    section: "reportar-celular",
-    usuario: "usuario",
-    color: "bg-purple-300"
-  }
+    nombre: 'Reportar Celular',
+    section: 'reportar-celular',
+    usuario: 'usuario',
+    color: 'bg-purple-300',
+  },
 ]
 ---
 
-
-<header class="flex flex-col gap-6 text-center pt-6">
+<header class='flex flex-col gap-6 text-center pt-6'>
   <div>
     <h1 class='text-white text-6xl font-bold'>Celulares</h1>
-    <h2 class='text-3xl text-red-400'>{tipoUsuario ?? `Usuario: ${tipoUsuario}`}</h2>
+    <h2 class='text-3xl text-red-400'>
+      {tipoUsuario ?? `Usuario: ${tipoUsuario}`}
+    </h2>
     <span class='text-lg text-amber-400'>Blockchain</span>
   </div>
 
-  <section id='botones' class='flex items-center justify-center flex-wrap gap-2'>
+  <section
+    id='botones'
+    class='flex items-center justify-center flex-wrap gap-2'
+  >
     {
-      botones.map(({nombre, section, usuario, color}) => (
-        <button data-section={section} class={`px-5 py-3 text-black rounded-md font-medium ${color} ${tipoUsuario === usuario ? '' : 'hidden' }`}>{nombre}</button>
+      botones.map(({ nombre, section, usuario, color }) => (
+        <button
+          data-section={section}
+          class={`px-5 py-3 text-black rounded-md font-medium ${color} ${tipoUsuario === usuario ? '' : 'hidden'}`}
+        >
+          {nombre}
+        </button>
       ))
     }
   </section>

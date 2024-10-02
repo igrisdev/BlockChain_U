@@ -1,11 +1,20 @@
 ---
-import Check from '../assets/icons/Check.astro';
-import NoCheck from '../assets/icons/NoCheck.astro';
-import Layout from '../layouts/Layout.astro';
+import Check from '../assets/icons/Check.astro'
+import NoCheck from '../assets/icons/NoCheck.astro'
+import Layout from '../layouts/Layout.astro'
 
-import type { CadenaCelulares, Listar } from '../env.d.ts';
+import type { CadenaCelulares, Listar } from '../env.d.ts'
 
-const columnasNames = ["Index", "Nombres", "Documento", "IMEI", "Modelo", "Marca", "Precio", "Reportado", "Fecha"
+const columnasNames = [
+  'Index',
+  'Nombres',
+  'Documento',
+  'IMEI',
+  'Modelo',
+  'Marca',
+  'Precio',
+  'Reportado',
+  'Fecha',
 ]
 
 // const celulares : CadenaCelulares = await fetch('http://localhost:3000').then((res) => res.json());
@@ -29,11 +38,22 @@ const columnasNames = ["Index", "Nombres", "Documento", "IMEI", "Modelo", "Marca
 const listarCelulares = []
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title='Welcome to Astro.'>
   <section class='flex items-center justify-center flex-wrap gap-4'>
-    <a href="/fabricante" class='min-w-[150px] text-center px-5 py-3 border-white border-[1px] font-medium bg-transparent text-white hover:bg-white hover:text-black transition-colors duration-300'>Fabricante</a>
-    <a href="/fabricante" class='min-w-[150px] text-center px-5 py-3 border-white border-[1px] font-medium bg-transparent text-white hover:bg-white hover:text-black transition-colors duration-300'>Distribuidor</a>
-    <a href="/fabricante" class='min-w-[150px] text-center px-5 py-3 border-white border-[1px] font-medium bg-transparent text-white hover:bg-white hover:text-black transition-colors duration-300'>Usuario</a>
+    <a
+      href='/fabricante'
+      class='min-w-[150px] text-center px-5 py-3 border-white border-[1px] font-medium bg-transparent text-white hover:bg-white hover:text-black transition-colors duration-300'
+      >Fabricante</a
+    >
+    <a
+      href='/fabricante'
+      class='min-w-[150px] text-center px-5 py-3 border-white border-[1px] font-medium bg-transparent text-white hover:bg-white hover:text-black transition-colors duration-300'
+      >Distribuidor</a
+    >
+    <a
+      href='/fabricante'
+      class='min-w-[150px] text-center px-5 py-3 border-white border-[1px] font-medium bg-transparent text-white hover:bg-white hover:text-black transition-colors duration-300'
+      >Usuario</a
+    >
   </section>
 </Layout>
-
