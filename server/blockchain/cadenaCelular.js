@@ -98,7 +98,7 @@ export class CadenaCelular {
     try {
       const existeCelular = await this.existeCelular(imei)
 
-      if (existeCelular.length == 0) {
+      if (!existeCelular) {
         throw new Error('El celular no existe')
       }
 
@@ -120,7 +120,7 @@ export class CadenaCelular {
         }
       )
 
-      return { ok: true, mensaje: 'Celular revendido ' + imei }
+      return { ok: true, mensaje: 'Celular ADQUIRIDO ' + imei }
     } catch (error) {
       throw new Error(error.message)
     }
@@ -135,7 +135,7 @@ export class CadenaCelular {
     try {
       const existeCelular = await this.existeCelular(imei)
 
-      if (existeCelular.length == 0) {
+      if (!existeCelular) {
         throw new Error('El celular no existe')
       }
 
@@ -158,7 +158,7 @@ export class CadenaCelular {
         }
       )
 
-      return { ok: true, mensaje: 'Celular adquirido ' + imei }
+      return { ok: true, mensaje: 'Celular VENDIDO a ' + nombres }
     } catch (error) {
       throw new Error(error.message)
     }
@@ -168,29 +168,6 @@ export class CadenaCelular {
     const lista = await CadenaCelulares.find().select('-_id -__v')
 
     return lista
-  }
-
-  async comprobarRobo(imei) {
-    try {
-      const siExiste = await this.existeCelular(imei)
-
-      if (siExiste.length == 0) {
-        throw new Error('Celular NO REGISTRADO')
-      }
-
-      const verificarRobo = await this.buscarSiCelularReportado(imei)
-
-      if (verificarRobo) {
-        return {
-          ok: true,
-          mensaje: 'Celular ' + imei + ' REPORTADO como ROBADO',
-        }
-      }
-
-      return { ok: true, mensaje: 'Celular NO REPORTADO ' + imei }
-    } catch (error) {
-      throw new Error(error.message)
-    }
   }
 
   async buscarSiCelularReportado(imei) {
@@ -238,6 +215,29 @@ export class CadenaCelular {
       })
 
       return celular
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  }
+
+  async comprobarRobo(imei) {
+    try {
+      const siExiste = await this.existeCelular(imei)
+
+      if (!siExiste) {
+        throw new Error('Celular NO REGISTRADO')
+      }
+
+      const verificarRobo = await this.buscarSiCelularReportado(imei)
+
+      if (verificarRobo) {
+        return {
+          ok: true,
+          mensaje: 'Celular ' + imei + ' REPORTADO como ROBADO',
+        }
+      }
+
+      return { ok: true, mensaje: 'Celular NO REPORTADO ' + imei }
     } catch (error) {
       throw new Error(error.message)
     }
